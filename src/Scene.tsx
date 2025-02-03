@@ -8,6 +8,8 @@ import React from "react";
 import Player from "./components/Player";
 import OtherPlayer from "./components/OtherPlayer";
 import WorldMap from "./components/Map";
+import { useMap } from "./components/MapContext";
+
 
 
 interface SceneProps {
@@ -27,6 +29,9 @@ interface PlayerProps {
 export const Scene: React.FC<SceneProps> = ({ username, color }) => {
     const socket = getSocket();
     const [otherPlayers, setOtherPlayers] = useState<PlayerProps[]>([]);
+    const { currentMap, currentGLTF, currentBuildings } = useMap();
+
+
 
     useEffect(() => {
         socket.connect();
@@ -208,14 +213,14 @@ export const Scene: React.FC<SceneProps> = ({ username, color }) => {
             <directionalLight position={[-10, 10, 0]} intensity={0.4} />
             {/* <OrbitControls /> */}
 
-            <Player socket={socket} username={username} color={color} />
+            <Player socket={socket} mapGltf={currentGLTF} currentBuildings={currentBuildings} username={username} color={color} />
             {/* Other Players */}
             {otherPlayers.map((player) => (
                 <OtherPlayer key={player.id} id={player.id} color={player.color} ref={player.ref} />
             ))}
 
             {/* Floor / Map */}
-            <WorldMap />
+            <WorldMap mapName={currentMap} currentBuildings={currentBuildings} currentGLTF={currentGLTF} />
         </>
     )
 }

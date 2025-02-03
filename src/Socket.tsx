@@ -1,4 +1,3 @@
-import { Environment } from "@react-three/drei";
 import { io, Socket } from "socket.io-client";
 
 // Define your Socket.IO connection URL

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Scene from "./Scene";
 import App from "./App";
 
 const Game = () => {
@@ -34,7 +33,7 @@ const Game = () => {
                             }}
                         />
                         <input
-                            type="text"
+                            type="color"
                             value={color}
                             onChange={(e) => setColor(e.target.value)}
                             placeholder="Enter Color"

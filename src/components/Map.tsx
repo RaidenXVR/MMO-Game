@@ -1,20 +1,32 @@
-// Map.tsx
+// WorldMap.tsx
+import React, { FC } from "react";
 import { RigidBody } from "@react-three/rapier";
-import { useGLTF } from "@react-three/drei";
-import { MeshBasicMaterial } from "three";
+import * as THREE from "three";
 
-const WorldMap = () => {
+interface WorldMapProps {
+    mapName: string;
+    // setMapObjects: React.Dispatch<THREE.Group<THREE.Object3DEventMap>>;
+    currentGLTF: any;
+    currentBuildings: Array<THREE.Mesh>;
+}
 
-    const gltf = useGLTF('/assets/models/maps/jalanv2.glb')
-    const { materials } = gltf
-    const mats = materials.transparent_wall as MeshBasicMaterial
-    mats.transparent = true
-    mats.opacity = 0
-    console.log(materials.transparent_wall)
+const WorldMap: FC<WorldMapProps> = ({ mapName, currentGLTF, currentBuildings }) => {
+
+    const { nodes } = currentGLTF;
+
+
     return (
-        <RigidBody type="fixed" name="floor" position={[0, 0, 0]} colliders={"trimesh"}>
-            <primitive object={gltf.scene} scale={[1, 1, 1]} />
-        </RigidBody>
+        <>
+            <RigidBody type="fixed" name="floor" colliders={"trimesh"} >
+                {/* <mesh geometry={(nodes.walkable as THREE.Mesh).geometry} material={materials.walkable} /> */}
+                <primitive object={nodes.walkable} />
+            </RigidBody>
+            {currentBuildings.map((building, index) => (
+                <RigidBody key={index} type="fixed" name="wall" colliders="trimesh">
+                    <mesh geometry={building.geometry} material={building.material} />
+                </RigidBody>
+            ))}
+        </>
     );
 };
 

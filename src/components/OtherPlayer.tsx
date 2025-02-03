@@ -1,10 +1,8 @@
-import { Box, useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
 import { RapierRigidBody, RigidBody } from "@react-three/rapier";
-import { FC, forwardRef, RefObject, useEffect, useRef } from "react";
+import { forwardRef, useEffect } from "react";
 import { Color } from "three";
 import * as THREE from "three";
-import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils'
 
 
 
@@ -15,7 +13,7 @@ interface OtherPlayerProperties {
 }
 
 const OtherPlayer = forwardRef<RapierRigidBody, OtherPlayerProperties>(({ id, color }, ref) => {
-    const gltf = useGLTF('/assets/models/otherPlayer.glb');
+    const gltf = useGLTF('/models/otherPlayer.glb');
     const { nodes, materials } = gltf;
     const mats = materials.Color1.clone() as THREE.MeshStandardMaterial
     mats.color = new Color(color)

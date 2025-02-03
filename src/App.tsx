@@ -5,6 +5,7 @@ import './App.css';
 import { Physics } from '@react-three/rapier';
 import { Canvas } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
+import { MapProvider } from './components/MapContext';
 
 export const Controls = {
   forward: 'forward',
@@ -37,17 +38,40 @@ const App: React.FC<AppProps> = ({ username, color }) => {
 
   return (
     <KeyboardControls map={map}>
-
-      <Canvas className='App' shadows frameloop='demand'>
+      <div id="coordinates-overlay" style={{
+        position: 'fixed', top: "10px", left: '10px', color: 'white', padding: "8px 12px", backgroundColor: "#000000dd",
+        borderRadius: '5px',
+        fontSize: '14px',
+        zIndex: 9999
+      }}>
+        <p id="x-coor"></p>
+        <p id="y-coor"></p>
+        <p id="z-coor"></p>
+      </div>
+      <div id='camera-overlay' style={{
+        position: 'fixed', top: "10px", right: '10px', color: 'white', padding: "8px 12px", backgroundColor: "#000000dd",
+        borderRadius: '5px',
+        fontSize: '14px',
+        zIndex: 9999
+      }}>
+        <p id="camera-x"></p>
+        <p id="camera-y"></p>
+        <p id="camera-z"></p>
+        <p id='azimuth-angle'></p>
+        <p id='polar-angle'></p>
+      </div>
+      <Canvas style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }} shadows frameloop='demand'>
 
         <color attach={"background"} args={["#ececec"]} />
         <Suspense>
           <Physics gravity={[0, -4, 0]}>
-            <Scene username={username} color={color} />
+            <MapProvider>
+              <Scene username={username} color={color} />
+            </MapProvider>
           </Physics>
         </Suspense>
       </Canvas>
-    </KeyboardControls>
+    </KeyboardControls >
   );
 };
 
