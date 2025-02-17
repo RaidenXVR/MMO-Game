@@ -95,8 +95,8 @@ export const Scene: React.FC<SceneProps> = ({ username, color }) => {
 
         });
 
-        socket.on("existing_players", ({ existingPlayers }) => {
-            existingPlayers.forEach((player: {
+        socket.on("existing_players", ({ existing_players }) => {
+            existing_players.forEach((player: {
                 id: string; x: number; y: number; z: number, rot_x: number; rot_y: number; rot_z: number, rot_w: number, color: Color
             }) => {
                 addPlayer(player.id,
@@ -109,6 +109,7 @@ export const Scene: React.FC<SceneProps> = ({ username, color }) => {
         // Listen for other players' movements
         socket.on("player_moved", ({ id, x, y, z, rot_x, rot_y, rot_z, rot_w }) => {
             updatePlayerPosition(id, { x, y, z }, { x: rot_x, y: rot_y, z: rot_z, w: rot_w });
+            console.log("player moved: ", id, x, y, z)
         });
 
         // Handle disconnect

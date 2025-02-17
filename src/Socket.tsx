@@ -1,7 +1,7 @@
 import { io, Socket } from "socket.io-client";
 
 // Define your Socket.IO connection URL
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:5000";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:5000/";
 //process.env.REACT_APP_SERVER_URL || 
 
 // Create a singleton for the socket connection

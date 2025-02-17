@@ -230,7 +230,7 @@ const Player: React.FC<PlayerProperties> = ({ socket, mapGltf, currentBuildings,
             jump();
         }
         if (debugPressed) {
-            // console.log(gltf.scene)
+            socket.emit("debug");
 
         }
         handleMovement();
@@ -309,7 +309,6 @@ const Player: React.FC<PlayerProperties> = ({ socket, mapGltf, currentBuildings,
                 rot_w: cube.current?.rotation().w,
                 color: color
             })
-
         }
 
         const updateCoorInterval = setInterval(updateCoor, 80);

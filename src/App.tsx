@@ -14,7 +14,6 @@ export const Controls = {
   right: 'right',
   jump: 'jump',
   debug: 'debug',
-
 }
 
 interface AppProps {

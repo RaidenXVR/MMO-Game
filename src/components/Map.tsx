@@ -1,6 +1,8 @@
 // WorldMap.tsx
 import React, { FC } from "react";
 import { RigidBody } from "@react-three/rapier";
+import { useGLTF } from "@react-three/drei";
+import { MeshBasicMaterial } from "three";
 import * as THREE from "three";
 
 interface WorldMapProps {
